@@ -1,3 +1,3 @@
 {
-  "mongoURI": "mongodb://localhost:27017/sessions"
+  "mongoURI": "mongodb://localhost:27017/"
 }

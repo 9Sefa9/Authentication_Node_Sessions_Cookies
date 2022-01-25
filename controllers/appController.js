@@ -1,18 +1,18 @@
-const bcrypt = require("bcryptjs");
+import bcrypt from 'bcryptjs';
 
-const User = require("../models/User");
+import User from '../models/User.js';
 
-exports.landing_page = (req, res) => {
+const landing_page = (req, res) => {
   res.render("landing");
 };
 
-exports.login_get = (req, res) => {
+const login_get = (req, res) => {
   const error = req.session.error;
   delete req.session.error;
   res.render("login", { err: error });
 };
 
-exports.login_post = async (req, res) => {
+const login_post = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -34,13 +34,13 @@ exports.login_post = async (req, res) => {
   res.redirect("/dashboard");
 };
 
-exports.register_get = (req, res) => {
+const register_get = (req, res) => {
   const error = req.session.error;
   delete req.session.error;
   res.render("register", { err: error });
 };
 
-exports.register_post = async (req, res) => {
+const register_post = async (req, res) => {
   const { username, email, password } = req.body;
 
   let user = await User.findOne({ email });
@@ -62,14 +62,16 @@ exports.register_post = async (req, res) => {
   res.redirect("/login");
 };
 
-exports.dashboard_get = (req, res) => {
+const dashboard_get = (req, res) => {
   const username = req.session.username;
   res.render("dashboard", { name: username });
 };
 
-exports.logout_post = (req, res) => {
+const logout_post = (req, res) => {
   req.session.destroy((err) => {
     if (err) throw err;
     res.redirect("/login");
   });
 };
+
+export default {landing_page,login_get,login_post,register_get,register_post,dashboard_get,logout_post}

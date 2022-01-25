@@ -1,0 +1,5 @@
+services:
+  mongo-app-auth-session:
+    image: mongo:latest
+    ports: 
+    - "27017:27017"

@@ -1,17 +1,19 @@
-const express = require("express");
-const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session")(session);
-const config = require("config");
+import express from 'express';
+import session from 'express-session';
+import MongoDBStore from 'connect-mongodb-session';
+import config from 'config';
 
-const appController = require("./controllers/appController");
-const isAuth = require("./middleware/is-auth");
-const connectDB = require("./config/db");
-const mongoURI = config.get("mongoURI");
+import appController from './controllers/appController.js';
+import isAuth from './middleware/is-auth.js';
+import connectDB from './config/db.js';
+
+const MongoDBS = MongoDBStore(session);
+const mongoURI = config.get('mongoURI');
 
 const app = express();
 connectDB();
 
-const store = new MongoDBStore({
+const store = new MongoDBS({
   uri: mongoURI,
   collection: "mySessions",
 });
